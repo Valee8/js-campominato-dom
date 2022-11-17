@@ -32,6 +32,8 @@ const numCaselleImpossible = 49;
 
 const numBombs = 16;
 
+let punteggio = [];
+
 // Cliccando il bottone play compaiono le caselle
 playButton.addEventListener("click",
 
@@ -64,7 +66,6 @@ playButton.addEventListener("click",
         // Genero numero caselle
         for (let i = 1; i <= numCaselle; i++) {
 
-
             // Richiamo funzione
             let boxElement = generaCaselle();
     
@@ -77,18 +78,23 @@ playButton.addEventListener("click",
 
                 function() {
 
-
                     if (arrayCasuali.includes(i)) {
                         boxElement.classList.add("red");
+                        risultato.innerHTML = "Mi dispiace, hai perso";
 
                     }
                     else {
                         boxElement.classList.add("clicked");
 
+                        if (!punteggio.includes(i)) {
+                            punteggio.push(i);
+                            document.getElementById("punteggio").innerHTML = `Il tuo punteggio &egrave; ${punteggio.length}`;
+
+                        }
+
+                        console.log(i);
+                    
                     }
-
-
-                    console.log(i);
 
                 }
 
