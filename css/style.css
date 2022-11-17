@@ -72,9 +72,16 @@ header {
 /* Main */
 main {
     display: flex;
+    justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     padding: 40px;
     min-height: calc(100vh - 126px);
+}
+
+#risultato {
+    text-align: center;
+    width: 100%;
 }
 
 /* Caselle */
@@ -99,7 +106,11 @@ main {
 }
 
 .box.clicked {
-    background-color: lightblue;
+    background-color: blue;
+}
+
+.box.red {
+    background-color: red;
 }
 
 /* Footer */
