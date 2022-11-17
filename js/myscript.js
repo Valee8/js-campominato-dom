@@ -64,6 +64,7 @@ playButton.addEventListener("click",
         // Genero numero caselle
         for (let i = 1; i <= numCaselle; i++) {
 
+
             // Richiamo funzione
             let boxElement = generaCaselle();
     
@@ -76,24 +77,25 @@ playButton.addEventListener("click",
 
                 function() {
 
-                    for (let j = 0; j < arrayCasuali.length; j++) {
 
-                        if(arrayCasuali[j] === i) {
-                            boxElement.classList.add("red");
+                    if (arrayCasuali.includes(i)) {
+                        boxElement.classList.add("red");
 
-                            risultato.innerHTML = "Mi dispiace, hai perso";
-                        }
-                        else {
-                            boxElement.classList.add("clicked");
+                    }
+                    else {
+                        boxElement.classList.add("clicked");
 
-                        }
                     }
 
+
                     console.log(i);
+
                 }
 
             );
+
         }
+
 
     }
 );
