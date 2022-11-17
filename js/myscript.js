@@ -76,7 +76,18 @@ playButton.addEventListener("click",
 
                 function() {
 
-                    boxElement.classList.add("clicked");
+                    for (let j = 0; j < arrayCasuali.length; j++) {
+
+                        if(arrayCasuali[j] === i) {
+                            boxElement.classList.add("red");
+
+                            risultato.innerHTML = "Mi dispiace, hai perso";
+                        }
+                        else {
+                            boxElement.classList.add("clicked");
+
+                        }
+                    }
 
                     console.log(i);
                 }
