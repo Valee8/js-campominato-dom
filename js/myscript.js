@@ -1,21 +1,36 @@
-// Consegna:
-// L’utente clicca su un bottone che genererà una griglia di gioco quadrata.
-// Ogni cella ha un numero progressivo, da 1 a 100.
-// Ci saranno quindi 10 caselle per ognuna delle 10 righe.
-// Quando l’utente clicca su ogni cella, la cella cliccata si colora di azzurro ed emetto un messaggio
-//  in console con il numero della cella cliccata.
+// Consegna
+// Il computer deve generare 16 numeri casuali nello stesso range della difficoltà prescelta (se avete fatto bonus di ieri e 
+// partite da li, sennò range rimane di base 1-100): le bombe.
+// Attenzione: nella stessa cella può essere posizionata al massimo una bomba, perciò nell’array delle bombe non potranno esserci 
+// due numeri uguali.
+// In seguito l’utente clicca su una cella:
+// se il numero è presente nella lista dei numeri generati - abbiamo calpestato una bomba - la cella si colora di rosso e la partita
+//  termina.
+// Altrimenti la cella cliccata si colora di azzurro e l’utente può continuare a cliccare sulle altre celle.
+// La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero massimo possibile di numeri consentiti 
+// (ovvero quando ha rivelato tutte le celle che non sono bombe).
+// Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella 
+// che non era una bomba.
 
-// Bonus
-// Aggiungere una select accanto al bottone di generazione, che fornisca una scelta tra tre diversi livelli di difficoltà:
-//  - con difficoltà 1 => 100 caselle, con un numero compreso tra 1 e 100, divise in 10 caselle per 10 righe;
-// - con difficoltà 2 => 81 caselle, con un numero compreso tra 1 e 81, divise in 9 caselle per 9 righe;
-// - con difficoltà 3 => 49 caselle, con un numero compreso tra 1 e 49, divise in 7 caselle per 7 righe;
+// BONUS:
+// Quando si clicca su una bomba e finisce la partita, evitare che si possa cliccare su altre celle;
+// Quando si clicca su una bomba e finisce la partita, il software scopre tutte le bombe nascoste.
 
 const playButton = document.getElementById("play");
 
 const container = document.getElementById("container");
 
+const risultato = document.getElementById("risultato");
+
 let numCaselle;
+
+const numCaselleEasy = 100;
+
+const numCaselleHard = 81;
+
+const numCaselleImpossible = 49;
+
+const numBombs = 16;
 
 // Cliccando il bottone play compaiono le caselle
 playButton.addEventListener("click",
@@ -27,17 +42,18 @@ playButton.addEventListener("click",
 
         // Numero caselle diverso a seconda della difficoltà
         if (document.getElementById("difficulty").value === "easy") {
-            numCaselle = 100;
+            numCaselle = numCaselleEasy;
             container.className = "easy";
         }
         else if (document.getElementById("difficulty").value === "hard") {
-            numCaselle = 81;
+            numCaselle = numCaselleHard;
             container.className = "hard";
         }
         else {
-            numCaselle = 49;
+            numCaselle = numCaselleImpossible;
             container.className = "impossible";
         }
+        
 
         // Genero numero caselle
         for (let i = 1; i <= numCaselle; i++) {
@@ -47,7 +63,7 @@ playButton.addEventListener("click",
     
             container.append(boxElement);
 
-            boxElement.append(i);    
+            boxElement.append(i);  
             
             // Al click le caselle cambiano colore e appare il numero in console log
             boxElement.addEventListener("click",
