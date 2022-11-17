@@ -88,3 +88,7 @@ function generaCaselle() {
 
     return div;
 }
+
+function numCasuale(min, max) {
+    return (Math.floor(Math.random() * ((max + 1) - min) + min));
+}
