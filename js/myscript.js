@@ -54,6 +54,12 @@ playButton.addEventListener("click",
             container.className = "impossible";
         }
         
+        const arrayCasuali = generaArray(numBombs, 1, numCaselle);
+
+        for (let i = 0; i < arrayCasuali.length; i++) {
+            console.log("arrayCasuali: ", arrayCasuali[i]);
+        }
+        
 
         // Genero numero caselle
         for (let i = 1; i <= numCaselle; i++) {
@@ -92,3 +98,17 @@ function generaCaselle() {
 function numCasuale(min, max) {
     return (Math.floor(Math.random() * ((max + 1) - min) + min));
 }
+
+function generaArray(n, numMin, numMax) {
+    const array = [];
+
+    while (array.length < n) {
+        let newNumber = numCasuale(numMin, numMax);
+
+        if(!array.includes(newNumber)) {
+            array.push(newNumber);
+        }
+    }
+
+    return array;
+} 
