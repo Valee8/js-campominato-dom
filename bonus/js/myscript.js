@@ -97,9 +97,11 @@ function play() {
                     
                 else {
 
-                    for (let i = 0; i < numCaselle; i++) {
-                        if (arrayCasuali.includes(i))
-                            box[i-1].classList.add("red");
+                    for (let i = 0; i <= numCaselle; i++) {
+                        
+                        if (arrayCasuali.includes(i)) {
+                            box[i].classList.add("red");
+                        }
                     }
 
                     document.getElementById("try-again").classList.add("visible");
