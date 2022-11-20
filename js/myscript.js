@@ -87,8 +87,6 @@ function play() {
             
                     if (!punteggio.includes(i)) {
                         punteggio.push(i);
-                        document.getElementById("punteggio").classList.remove("hidden");
-                        document.getElementById("punteggio").innerHTML = `Il tuo punteggio &egrave;: ${punteggio.length}`;
                     }
                 }
                     
@@ -102,9 +100,11 @@ function play() {
             
                     document.getElementById("risultato").innerHTML = "Mi dispiace, hai perso, ";
             
-                    document.getElementById("punteggio").innerHTML = `il tuo punteggio &egrave;: ${punteggio.length}`;
-            
                 }
+
+                document.getElementById("punteggio").classList.remove("hidden");
+
+                document.getElementById("punteggio").innerHTML = `il tuo punteggio &egrave;: ${punteggio.length}`;
 
             
                 if (punteggio.length === numCaselle - arrayCasuali.length) {
