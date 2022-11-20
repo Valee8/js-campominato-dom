@@ -40,7 +40,7 @@ header {
 }
 
 /* Bottone e select */
-#play, #difficulty {
+#play, #difficulty, #try-again {
     text-decoration: none;
     color: #000;
     font-size: 0.8rem;
@@ -56,9 +56,21 @@ header {
     padding: 0 20px 1px 0;
 }
 
+.hidden {
+    display: none;
+}
+
 .bottoni label {
     font-size: 0.9rem;
     vertical-align: middle;
+}
+
+#try-again {
+    display: none
+}
+
+#try-again.visible {
+    display: inline-block;
 }
 
 /* Container */
@@ -73,15 +85,14 @@ header {
 main {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
     padding: 40px;
     min-height: calc(100vh - 126px);
+    position: relative;
 }
 
-#risultato, #punteggio {
+#risposte {
     text-align: center;
-    width: 100%;
 }
 
 /* Caselle */

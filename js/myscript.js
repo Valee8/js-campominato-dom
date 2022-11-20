@@ -34,6 +34,14 @@ const numBombs = 16;
 
 let punteggio = [];
 
+let gameActive = true;
+
+function tryAgain () {
+    window.location.reload();
+}
+
+document.getElementById("try-again").addEventListener("click", tryAgain);
+
 // Cliccando il bottone play compaiono le caselle
 playButton.addEventListener("click",
 
@@ -41,6 +49,9 @@ playButton.addEventListener("click",
 
         // Non aggiungo altro contenuto se clicco di nuovo il bottone
         container.innerHTML = "";
+
+        document.getElementById("difficulty").classList.add("hidden");
+        document.querySelector("label").classList.add("hidden");
 
         // Numero caselle diverso a seconda della difficoltà
         if (document.getElementById("difficulty").value === "easy") {
@@ -78,22 +89,33 @@ playButton.addEventListener("click",
 
                 function() {
 
-                    if (arrayCasuali.includes(i)) {
-                        boxElement.classList.add("red");
-                        risultato.innerHTML = "Mi dispiace, hai perso";
-
-                    }
-                    else {
+                    if (!arrayCasuali.includes(i) && gameActive) {
                         boxElement.classList.add("clicked");
+
+                        console.log(i);
 
                         if (!punteggio.includes(i)) {
                             punteggio.push(i);
-                            document.getElementById("punteggio").innerHTML = `Il tuo punteggio &egrave; ${punteggio.length}`;
-
+                            document.getElementById("punteggio").innerHTML = `Il tuo punteggio &egrave;: ${punteggio.length}`;
                         }
 
-                        console.log(i);
-                    
+                        if (punteggio.length === numCaselle - arrayCasuali.length) {
+                            risultato.innerHTML = "Complimenti, hai vinto";
+                        }
+                    }
+                        
+                    else {
+                        if (arrayCasuali.includes(i)) {
+                            boxElement.classList.add("red");
+
+                            document.getElementById("try-again").classList.add("visible");
+
+                            document.getElementById("play").classList.add("hidden");
+
+                            risultato.innerHTML = "Mi dispiace, hai perso, ";
+                            document.getElementById("punteggio").innerHTML = `il tuo punteggio &egrave;: ${punteggio.length}`;
+                        }
+                        gameActive = false;
                     }
 
                 }
