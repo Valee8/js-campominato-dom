@@ -64,7 +64,7 @@ function play() {
         container.className = "impossible";
     }
 
-    const arrayCasuali = [1];
+    const arrayCasuali = generaArray(numBombs, 1, numCaselle);
 
     for (let i = 0; i < arrayCasuali.length; i++) {
         console.log("arrayCasuali: ", arrayCasuali[i]);
@@ -98,7 +98,7 @@ function play() {
                 else {
 
                     for (let i = 0; i <= numCaselle; i++) {
-                        
+
                         if (arrayCasuali.includes(i)) {
                             box[i].classList.add("red");
                         }
