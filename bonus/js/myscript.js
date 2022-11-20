@@ -64,7 +64,7 @@ function play() {
         container.className = "impossible";
     }
 
-    const arrayCasuali = generaArray(numBombs, 1, numCaselle);
+    const arrayCasuali = [1];
 
     for (let i = 0; i < arrayCasuali.length; i++) {
         console.log("arrayCasuali: ", arrayCasuali[i]);
