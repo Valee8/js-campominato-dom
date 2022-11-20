@@ -16,11 +16,7 @@
 // Quando si clicca su una bomba e finisce la partita, evitare che si possa cliccare su altre celle;
 // Quando si clicca su una bomba e finisce la partita, il software scopre tutte le bombe nascoste.
 
-const playButton = document.getElementById("play");
-
 const container = document.getElementById("container");
-
-const risultato = document.getElementById("risultato");
 
 let numCaselle;
 
@@ -34,99 +30,95 @@ const numBombs = 16;
 
 let punteggio = [];
 
-let gameActive = true;
+// Cliccando il bottone play compaiono le caselle
+document.getElementById("play").addEventListener("click", play);
+
+document.getElementById("try-again").addEventListener("click", tryAgain);
+
+function play() {
+
+    // Non aggiungo altro contenuto se clicco di nuovo il bottone
+    container.innerHTML = "";
+
+    //Nascondo il punteggio se viene cliccato nuovamente play selezionando un'altra difficolta
+    document.getElementById("punteggio").classList.add("hidden");
+
+    // Azzero il punteggio se viene cliccato nuovamente play selezionando un'altra difficolta
+    punteggio.length = 0;
+
+    // Numero caselle diverso a seconda della difficoltà
+    if (document.querySelector("select").value === "easy") {
+        numCaselle = numCaselleEasy;
+        container.className = "easy";
+    }
+    else if (document.querySelector("select").value === "hard") {
+        numCaselle = numCaselleHard;
+        container.className = "hard";
+    }
+    else {
+        numCaselle = numCaselleImpossible;
+        container.className = "impossible";
+    }
+
+    const arrayCasuali = generaArray(numBombs, 1, numCaselle);
+
+    for (let i = 0; i < arrayCasuali.length; i++) {
+        console.log("arrayCasuali: ", arrayCasuali[i]);
+    }
+    
+    // Genero numero caselle
+    for (let i = 1; i <= numCaselle; i++) {
+        
+        // Richiamo funzione
+        let boxElement = generaCaselle();
+
+        container.append(boxElement);
+
+        boxElement.append(i);
+
+        // Al click le caselle cambiano colore 
+        boxElement.addEventListener("click", 
+
+            function() {
+                if (!arrayCasuali.includes(i)) {
+                    boxElement.classList.add("clicked");
+            
+                    console.log(i);
+            
+                    if (!punteggio.includes(i)) {
+                        punteggio.push(i);
+                        document.getElementById("punteggio").classList.remove("hidden");
+                        document.getElementById("punteggio").innerHTML = `Il tuo punteggio &egrave;: ${punteggio.length}`;
+                    }
+                }
+                    
+                else {
+            
+                    boxElement.classList.add("red");
+            
+                    document.getElementById("try-again").classList.add("visible");
+            
+                    document.getElementById("play").classList.add("hidden");
+            
+                    document.getElementById("risultato").innerHTML = "Mi dispiace, hai perso, ";
+            
+                    document.getElementById("punteggio").innerHTML = `il tuo punteggio &egrave;: ${punteggio.length}`;
+            
+                }
+
+            
+                if (punteggio.length === numCaselle - arrayCasuali.length) {
+                    document.getElementById("risultato").innerHTML = "Complimenti, hai vinto, ";
+                }
+            }
+        );
+    }
+}
+
 
 function tryAgain () {
     window.location.reload();
 }
-
-document.getElementById("try-again").addEventListener("click", tryAgain);
-
-// Cliccando il bottone play compaiono le caselle
-playButton.addEventListener("click",
-
-    function() {
-
-        // Non aggiungo altro contenuto se clicco di nuovo il bottone
-        container.innerHTML = "";
-
-        document.getElementById("difficulty").classList.add("hidden");
-        document.querySelector("label").classList.add("hidden");
-
-        // Numero caselle diverso a seconda della difficoltà
-        if (document.getElementById("difficulty").value === "easy") {
-            numCaselle = numCaselleEasy;
-            container.className = "easy";
-        }
-        else if (document.getElementById("difficulty").value === "hard") {
-            numCaselle = numCaselleHard;
-            container.className = "hard";
-        }
-        else {
-            numCaselle = numCaselleImpossible;
-            container.className = "impossible";
-        }
-        
-        const arrayCasuali = generaArray(numBombs, 1, numCaselle);
-
-        for (let i = 0; i < arrayCasuali.length; i++) {
-            console.log("arrayCasuali: ", arrayCasuali[i]);
-        }
-        
-
-        // Genero numero caselle
-        for (let i = 1; i <= numCaselle; i++) {
-
-            // Richiamo funzione
-            let boxElement = generaCaselle();
-    
-            container.append(boxElement);
-
-            boxElement.append(i);  
-            
-            // Al click le caselle cambiano colore e appare il numero in console log
-            boxElement.addEventListener("click",
-
-                function() {
-
-                    if (!arrayCasuali.includes(i) && gameActive) {
-                        boxElement.classList.add("clicked");
-
-                        console.log(i);
-
-                        if (!punteggio.includes(i)) {
-                            punteggio.push(i);
-                            document.getElementById("punteggio").innerHTML = `Il tuo punteggio &egrave;: ${punteggio.length}`;
-                        }
-
-                        if (punteggio.length === numCaselle - arrayCasuali.length) {
-                            risultato.innerHTML = "Complimenti, hai vinto";
-                        }
-                    }
-                        
-                    else {
-                        if (arrayCasuali.includes(i)) {
-                            boxElement.classList.add("red");
-
-                            document.getElementById("try-again").classList.add("visible");
-
-                            document.getElementById("play").classList.add("hidden");
-
-                            risultato.innerHTML = "Mi dispiace, hai perso, ";
-                            document.getElementById("punteggio").innerHTML = `il tuo punteggio &egrave;: ${punteggio.length}`;
-                        }
-                        gameActive = false;
-                    }
-
-                }
-
-            );
-
-        }
-
-
-    }
-);
 
 // Funzione per creare caselle
 function generaCaselle() {
