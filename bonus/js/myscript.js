@@ -97,10 +97,10 @@ function play() {
                     
                 else {
 
-                    for (let i = 0; i <= numCaselle; i++) {
+                    for (let i = 0; i < numCaselle; i++) {
 
                         if (arrayCasuali.includes(i)) {
-                            box[i].classList.add("red");
+                            box[i-1].classList.add("red");
                         }
                     }
 
